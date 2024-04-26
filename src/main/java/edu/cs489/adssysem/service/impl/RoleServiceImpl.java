@@ -1,5 +1,7 @@
 package edu.cs489.adssysem.service.impl;
 
+import edu.cs489.adssysem.dto.request.RoleRequest;
+import edu.cs489.adssysem.dto.response.RoleResponse;
 import edu.cs489.adssysem.model.Role;
 import edu.cs489.adssysem.repository.RoleRepository;
 import edu.cs489.adssysem.service.RoleService;
@@ -16,13 +18,19 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role saveRole(Role role) {
-        return roleRepository.save(role);
+    public RoleResponse saveRole(RoleRequest roleRequest) {
+        Role role = new Role();
+        role.setRoleName(roleRequest.roleName());
+
+        Role addedRole = roleRepository.save(role);
+        return new RoleResponse(addedRole.getRoleId(), addedRole.getRoleName());
     }
 
     @Override
-    public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+    public List<RoleResponse> getAllRoles() {
+        List<Role> roles =  roleRepository.findAll();
+
+        return roles.stream().map( role -> new RoleResponse(role.getRoleId(), role.getRoleName())).toList();
     }
 
     @Override

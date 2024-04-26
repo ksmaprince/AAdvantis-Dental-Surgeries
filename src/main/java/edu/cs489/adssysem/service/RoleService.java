@@ -1,14 +1,16 @@
 package edu.cs489.adssysem.service;
 
 
+import edu.cs489.adssysem.dto.request.RoleRequest;
+import edu.cs489.adssysem.dto.response.RoleResponse;
 import edu.cs489.adssysem.model.Role;
 
 import java.util.List;
 
 public interface RoleService {
-    Role saveRole(Role role);
+    RoleResponse saveRole(RoleRequest roleRequest);
 
-    List<Role> getAllRoles();
+    List<RoleResponse> getAllRoles();
 
     Role getRoleById(Integer roleId);
 
